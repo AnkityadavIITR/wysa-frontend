@@ -2,17 +2,36 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
-First, run the development server:
+Follow these steps to run the Wysa backend server locally:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+1. Clone this repository to your local machine:
+
+   ```bash
+   git clone https://github.com/AnkityadavIITR/wysa-backend.git
+   ```
+
+2. Navigate to the project directory:
+
+   ```bash
+   cd wysa-frontend
+   ```
+
+3. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+4. Create a `.env` file in the root directory of the project and add the following environment variables:
+
+   ```
+   NEXT_PUBLIC_SERVER_URI=http://localhost:3000
+5. Start the server:
+
+   ```bash
+   npm run dev 
+   
+   
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
