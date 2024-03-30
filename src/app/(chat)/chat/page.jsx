@@ -1,18 +1,20 @@
 "use client";
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useRef } from "react";
 import { io } from "socket.io-client";
 
+let socket;
 const Page = () => {
+  const chatWindowRef = useRef(null);
   const [chatArray, setChatArray] = useState([]);
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(false);
   const [socketInitialized, setSocketInitialized] = useState(false);
 
-  let socket;
   useEffect(() => {
     socket = io("http://localhost:4000", {
       withCredentials: true,
     });
+
     socket.on("connect", () => {
       console.log("Socket connected");
       setSocketInitialized(true);
@@ -36,19 +38,29 @@ const Page = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     console.log(query);
-    if (socketInitialized) {
+    if (socketInitialized && query!="") {
       // Check if socket is initialized
+      setTimeout(() => {
+          setChatArray((prev) => [...prev, { query: query }]);
+      }, 700);
       socket.emit("user-query", query);
     } else {
       console.error("Socket is not initialized!");
     }
     setQuery("");
+    // Scroll to the bottom of the chat window
+    if (chatWindowRef.current) {
+      chatWindowRef.current.scrollTop = chatWindowRef.current.scrollHeight;
+    }
   };
 
   return (
     <div className="h-screen flex justify-center bg-gradient-to-br from-custom-gradient ">
       <div className="relative xl:min-w-[40%]  flex flex-col h-screen ">
-        <div className="flex flex-col gap-y-4 h-[80vh] overflow-auto mt-10">
+        <div
+          className="flex flex-col gap-y-4 h-[calc(70vh)] overflow-auto mt-10 "
+          ref={chatWindowRef}
+        >
           {chatArray?.map((chat) => {
             return (
               <>
@@ -58,7 +70,7 @@ const Page = () => {
                   </div>
                 ) : (
                   <div className="max-w-[300px] border bg-blue-300 text-white p-3 text-[18px] rounded-xl w-fit">
-                    {chat.response}
+                    {chat.query}
                   </div>
                 )}
               </>
@@ -66,7 +78,7 @@ const Page = () => {
           })}
         </div>
 
-        <div className="absolute bottom-10 xl:min-w-[40%]">
+        <form className="fixed bottom-10 xl:min-w-[40%] h">
           <div className="w-full">
             <label className="block mb-1">Enter your message</label>
             <input
@@ -80,6 +92,7 @@ const Page = () => {
             />
           </div>
           <button
+            type="submit"
             onClick={onSubmit}
             className={
               loading == false
@@ -90,7 +103,7 @@ const Page = () => {
           >
             {loading ? "loading.." : "Submit"}
           </button>
-        </div>
+        </form>
       </div>
     </div>
   );
