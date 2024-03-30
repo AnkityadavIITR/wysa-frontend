@@ -18,7 +18,7 @@ const Page = () => {
       router.push("/login")
     }
 
-  },[isUser])
+  },[isUser, router])
 
 
   useEffect(() => {
