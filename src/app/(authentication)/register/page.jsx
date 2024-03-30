@@ -6,16 +6,20 @@ import { setLocalStorage } from "@/lib/utils";
 import Form from "@/components/auth/signupform";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import useAuthRequest from "@/hooks/useAuth";
+import { setLocalStorage } from "@/lib/utils";
 
 const LoginPage = () => {
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
+  const {loading,error,register}=useAuthRequest();
 
   const handleSignIn = async (name,email, password) => {
     try {
-        console.log(name ,email, password);
-      if (response) {
-        router.replace("/dashboard");
+        const response=register(name,email,password);
+      if (response?.success) {
+        setLocalStorage("token",`Bearer ${response.token}`)
+        setLocalStorage("isUserAuthenticated",true);
+        router.replace("/chat");
       }
     } catch (e) {
       console.log(e);
@@ -31,7 +35,6 @@ const LoginPage = () => {
         <Form
           onSubmit={handleSignIn}
           loading={loading}
-          setLoading={setLoading}
         />
         <div className=" flex justify-end gap-x-1">
           <p className="text-[14px] text-gray-500 text-md">

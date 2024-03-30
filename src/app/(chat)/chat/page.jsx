@@ -22,9 +22,14 @@ const Page = () => {
 
 
   useEffect(() => {
-    socket = io(process.env.NEXT_PUBLIC_SERVER_URI, {
-      withCredentials: true,
-    });
+    socket = io(process.env.NEXT_PUBLIC_SERVER_URI, 
+      {
+        auth: {
+          token: getFromLocalStorage("token"),
+        },
+        timeout:50000
+      }
+    );
 
     socket.on("connect", () => {
       console.log("Socket connected");

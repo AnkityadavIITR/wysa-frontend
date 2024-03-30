@@ -1,6 +1,7 @@
 "use client";
 import axios from "axios";
 import { useState } from "react";
+import { getFromLocalStorage } from "@/lib/utils";
 
 const useAuthRequest = () => {
   const [loading, setLoading] = useState(false);
@@ -15,10 +16,6 @@ const useAuthRequest = () => {
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_SERVER_URI}/user/login`,
         { email, password },
-        {
-            withCredentials:true,
-            timeout:50000
-        }
       );
       console.log(response);
       return response.data;
@@ -37,9 +34,8 @@ const useAuthRequest = () => {
         name,
         email,
         password,
-      },{
-        withCredentials:true
-      });
+      },    
+      );
       return response.data;
     } catch (error) {
       setError(error.response?.data?.message || "An error occurred");

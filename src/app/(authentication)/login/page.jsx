@@ -19,7 +19,8 @@ const LoginPage = () => {
         const response=await login(email, password);
         console.log(response);
         if(response?.success){
-            setLocalStorage("isUserAuthenticated",true)
+            setLocalStorage("isUserAuthenticated",true);
+            setLocalStorage("token",`Bearer ${response.token}`)
             router.replace("/chat")
         }else{
             console.log(response);
