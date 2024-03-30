@@ -17,7 +17,9 @@ const LoginPage = () => {
       if (response) {
         router.replace("/dashboard");
       }
-    } catch (e) {}
+    } catch (e) {
+      console.log(e);
+    }
   };
   return (
     <div className="h-screen w-full flex justify-center items-center">
