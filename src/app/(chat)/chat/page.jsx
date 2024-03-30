@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState, useRef } from "react";
 import { io } from "socket.io-client";
+import { getFromLocalStorage } from "@/lib/utils";
 
 let socket;
 const Page = () => {
@@ -9,6 +10,15 @@ const Page = () => {
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(false);
   const [socketInitialized, setSocketInitialized] = useState(false);
+  const isUser=getFromLocalStorage("isUserAuthenticated")|| "";
+  const router=useRouter();
+  useEffect(()=>{
+    if(isUser==""){
+      router.push("/login")
+    }
+
+  },[isUser])
+
 
   useEffect(() => {
     socket = io("http://localhost:4000", {
