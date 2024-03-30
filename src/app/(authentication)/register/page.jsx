@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 
 // import { useToast } from "@/components/ui/use-toast";
-import { setLocalStorage } from "@/lib/utils";
 import Form from "@/components/auth/signupform";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
