@@ -15,7 +15,7 @@ export default function Home() {
   },[isUser])
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between bg-gradient-to-br from-gray-300 via-gray-300 to-yellow-200 via-custom-gradient">
+    <main className="flex min-h-screen flex-col items-center justify-between ">
     </main>
   );
 }
