@@ -25,7 +25,7 @@ Follow these steps to run the Wysa backend server locally:
 4. Create a `.env` file in the root directory of the project and add the following environment variables:
 
    ```
-   NEXT_PUBLIC_SERVER_URI=http://localhost:3000
+   NEXT_PUBLIC_SERVER_URI=http://localhost:4000
 5. Start the server:
 
    ```bash
