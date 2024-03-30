@@ -2,6 +2,7 @@
 import { useEffect, useState, useRef } from "react";
 import { io } from "socket.io-client";
 import { getFromLocalStorage } from "@/lib/utils";
+import { useRouter } from "next/navigation";
 
 let socket;
 const Page = () => {
