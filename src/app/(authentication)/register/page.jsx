@@ -49,7 +49,7 @@ const RegisterPage = () => {
       }
     } catch (e) {
       console.log(e);
-      toast.error(e.message)
+      toast.error("internal error")
     }
   };
   return (
@@ -66,7 +66,7 @@ const RegisterPage = () => {
           <h1 className="text-[24px] text-bold">{loginData?.heading}</h1>
         </div>
       )}
-      <div className="min-w-[400px] p-4 flex-col border rounded-md justify-center border-gray-600 bg-white">
+      <div className="w-[95%] md:min-w-[400px] p-4 flex-col border rounded-md justify-center border-gray-600 bg-white">
         <h1 className="text-[24px] text-semibold">Sign in to account</h1>
         <h2 className="text-[14px] text-gray-500 text-md mt-2">
           Enter your email below to signup
