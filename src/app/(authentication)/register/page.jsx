@@ -9,8 +9,9 @@ import useAuthRequest from "@/hooks/useAuth";
 import { setLocalStorage } from "@/lib/utils";
 import axios from "axios";
 import Image from "next/image";
+import {  toast } from 'react-hot-toast';
 
-const LoginPage = () => {
+const RegisterPage = () => {
   const router = useRouter();
   const { loading, error, register } = useAuthRequest();
   const [loginData, setLoginData] = useState(null);
@@ -35,14 +36,20 @@ const LoginPage = () => {
 
   const handleSignIn = async (name, email, password) => {
     try {
-      const response = register(name, email, password);
+      const response = await register(name, email, password);
+      console.log(response);
       if (response?.success) {
+        console.log("check");
         setLocalStorage("token", `Bearer ${response.token}`);
         setLocalStorage("isUserAuthenticated", true);
         router.replace("/chat");
       }
+      if(!response?.success){
+        toast.error(response.message);
+      }
     } catch (e) {
       console.log(e);
+      toast.error(e.message)
     }
   };
   return (
@@ -81,4 +88,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default RegisterPage;

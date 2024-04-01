@@ -54,7 +54,7 @@ const Page = () => {
     };
   }, []);
 
-  const onSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (socketInitialized && query !== "") {
       setChatArray((prev) => [...prev, { query: query }]);
@@ -91,7 +91,7 @@ const Page = () => {
           })}
         </div>
 
-        <form className="fixed bottom-10 xl:min-w-[40%] h">
+        <form onSubmit={(e)=>handleSubmit(e)} className="fixed bottom-10 xl:min-w-[40%] h">
           <div className="w-full">
             <label className="block mb-1">Enter your message</label>
             <input
@@ -106,7 +106,6 @@ const Page = () => {
           </div>
           <button
             type="submit"
-            onClick={onSubmit}
             className={
               loading == false
                 ? "w-full mt-5 bg-black py-2 text-white font-extrabold text-lg rounded-2xl desktop-arrow arrow text-center"

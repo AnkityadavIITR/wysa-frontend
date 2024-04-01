@@ -18,6 +18,7 @@ const useAuthRequest = () => {
         { email, password },
       );
       console.log(response);
+      setLoading(false)
       return response.data;
     } catch (error) {
       setError(error.response?.data?.message || "An error occurred");
@@ -26,6 +27,7 @@ const useAuthRequest = () => {
   };
 
   const register = async (name, email, password) => {
+    console.log(name, email, password);
     try {
       setLoading(true);
       setError(null);
@@ -36,6 +38,8 @@ const useAuthRequest = () => {
         password,
       },    
       );
+      console.log(response);
+      setLoading(false)
       return response.data;
     } catch (error) {
       setError(error.response?.data?.message || "An error occurred");
